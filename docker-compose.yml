@@ -12,6 +12,7 @@ services:
       - .:/app/
     links:
       - php
+      - rabbitmq
 
   php:
     build:
@@ -19,3 +20,11 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - .:/app/
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
